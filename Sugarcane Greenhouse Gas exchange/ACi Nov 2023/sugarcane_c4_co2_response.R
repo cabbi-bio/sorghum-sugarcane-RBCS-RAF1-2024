@@ -107,7 +107,7 @@ CI_UPPER_LIMIT <- Inf # ppm
 REMOVE_SPECIFIC_POINTS <- TRUE
 
 # Decide whether to remove statistical outliers
-REMOVE_STATISTICAL_OUTLIERS <- TRUE
+REMOVE_STATISTICAL_OUTLIERS <- FALSE
 
 # Decide whether to perform stats tests
 PERFORM_STATS_TESTS <- TRUE
@@ -119,7 +119,7 @@ CALCULATE_BASIC_STATS <- TRUE
 AVERAGE_OVER_PLOTS <- FALSE
 
 # Decide whether to save CSV outputs
-SAVE_CSV <- FALSE
+SAVE_CSV <- TRUE
 
 ###                                                                        ###
 ### COMPONENTS THAT ARE LESS LIKELY TO CHANGE EACH TIME THIS SCRIPT IS RUN ###
@@ -340,9 +340,17 @@ if (PERFORM_CALCULATIONS) {
     }
 
     # Perform A-Ci fits
+    ID_TO_EXCLUDE_FROM_FITS <- c(
+      'WT 7',
+      '3 2',
+      '9 3'
+    )
+    
+    data_for_fits <- combined_info[!combined_info[, UNIQUE_ID_COLUMN_NAME] %in% ID_TO_EXCLUDE_FROM_FITS, , TRUE]
+    
     fit_result <- consolidate(by(
-        combined_info[combined_info[, CI_COLUMN_NAME] <= CI_UPPER_LIMIT, , TRUE],
-        combined_info[combined_info[, CI_COLUMN_NAME] <= CI_UPPER_LIMIT, UNIQUE_ID_COLUMN_NAME],
+        data_for_fits[data_for_fits[, CI_COLUMN_NAME] <= CI_UPPER_LIMIT, , TRUE],
+        data_for_fits[data_for_fits[, CI_COLUMN_NAME] <= CI_UPPER_LIMIT, UNIQUE_ID_COLUMN_NAME],
         fit_c4_aci,
         Ca_atmospheric = 420,
         alpha = 0,
