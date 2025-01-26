@@ -5,8 +5,8 @@ library(lattice)
 # Check to make sure we have the correct version of PhotoGEA
 if (packageVersion('PhotoGEA') != '0.11.0') {
     stop(
-        'The `Sb_Field_Aug29_c4_co2_response.R` script requires PhotoGEA version ',
-        '0.11.0. See the main README.md for installation instructions.'
+        'The `Sb_Field_Aug4_c4_co2_response.R` script requires PhotoGEA version ',
+        '0.11.0. See README.md for installation instructions.'
     )
 }
 
@@ -23,6 +23,7 @@ GM_TABLE <- list()
 
  # Initialize the input files
 LICOR_FILES_TO_PROCESS <- c(
+ose_input_licor_files()
     '2023-08-29 cs sorghum aci ripe 14.xlsx',
     '2023-08-29 cs sorghum aci ripe 5.xlsx',
     '2023-08-29 cs sorghum aci ripe 6.xlsx',
@@ -46,63 +47,25 @@ POINT_FOR_BOX_PLOTS <- 1
 # Decide whether to remove a few specific points from the data before fitting
 REMOVE_SPECIFIC_POINTS <- TRUE
 
-# Decide whether to average over plots
-AVERAGE_OVER_PLOTS <- TRUE
-
 # Decide which solver to use
 solver <- optimizer_deoptim(itermax = 200)
 
+###                                                                        ###
+### COMPONENTS THAT ARE LESS LIKELY TO CHANGE EACH TIME THIS SCRIPT IS RUN ###
+###                                                                        ###
+
 # Specify the names of a few important columns
-A_COLUMN_NAME              <- 'A'
-CI_COLUMN_NAME             <- 'Ci'
-DELTA_PRESSURE_COLUMN_NAME <- 'DeltaPcham'
-EVENT_COLUMN_NAME          <- 'event'
-GM_COLUMN_NAME             <- 'gmc'
-GS_COLUMN_NAME             <- 'gsw'
-PRESSURE_COLUMN_NAME       <- 'Pa'
-REP_COLUMN_NAME            <- 'replicate'
-TIME_COLUMN_NAME           <- 'time'
-TLEAF_COLUMN_NAME          <- 'TleafCnd'
+A_COLUMN_NAME      <- 'A'
+CI_COLUMN_NAME     <- 'Ci'
+ETR_COLUMN_NAME    <- 'ETR'
+EVENT_COLUMN_NAME  <- 'event'
+GM_COLUMN_NAME     <- 'gmc'
+GS_COLUMN_NAME     <- 'gsw'
+PHIPS2_COLUMN_NAME <- 'PhiPS2'
+REP_COLUMN_NAME    <- 'replicate'
+TIME_COLUMN_NAME   <- 'time'
 
 UNIQUE_ID_COLUMN_NAME <- 'line_sample'
-
-# Define a function that averages across key columns in an exdf object
-avg_exdf <- function(exdf_obj) {
-    id_columns <- c(
-        EVENT_COLUMN_NAME,
-        'plot',
-        UNIQUE_ID_COLUMN_NAME,
-        'seq_num',
-        'CO2_r_sp'
-    )
-
-    avg_obj <- exdf_obj[1, id_columns, TRUE]
-
-    col_to_avg <- c(
-        A_COLUMN_NAME,
-        CI_COLUMN_NAME,
-        'Ca',
-        PRESSURE_COLUMN_NAME,
-        GS_COLUMN_NAME,
-        DELTA_PRESSURE_COLUMN_NAME,
-        TLEAF_COLUMN_NAME,
-        'E',
-        'gbw',
-        'H2O_s'
-    )
-
-    for (cn in col_to_avg) {
-        avg_obj <- set_variable(
-            avg_obj,
-            cn,
-            exdf_obj$units[[cn]],
-            exdf_obj$category[[cn]],
-            mean(exdf_obj[, cn])
-        )
-    }
-
-    return(avg_obj)
-}
 
 ###                                                                   ###
 ### COMMANDS THAT ACTUALLY CALL THE FUNCTIONS WITH APPROPRIATE INPUTS ###
@@ -161,27 +124,17 @@ combined_info <- organize_response_curve_data(
 
 # Remove specific problematic points
 if (REMOVE_SPECIFIC_POINTS) {
-    # Specify the points to remove
-    combined_info <- remove_points(
-        combined_info,
-        list(event = 'zg12a', replicate = '2', plot = '5', seq_num = 1)
-    )
-}
-
-# Average over curves from the same event and plot, if necessary
-if (AVERAGE_OVER_PLOTS) {
-    combined_info <- do.call(rbind.exdf, by(
-        combined_info,
-        list(combined_info[, EVENT_COLUMN_NAME], combined_info[, 'plot'], combined_info[, 'CO2_r_sp']),
-        avg_exdf
-    ))
-
-    REP_COLUMN_NAME <- 'plot'
-
-    combined_info[, UNIQUE_ID_COLUMN_NAME] <-
-        paste(combined_info[, EVENT_COLUMN_NAME], combined_info[, REP_COLUMN_NAME])
-
-    combined_info <- factorize_id_column(combined_info, UNIQUE_ID_COLUMN_NAME)
+  # Specify the points to remove
+  combined_info <- remove_points(
+    combined_info,
+    list(event = 'zg5b',  replicate = '1', plot = '5'),
+    list(event = 'zg12a', replicate = '1', seq_num = 7),
+    list(event = 'hn1a',  replicate = '2', plot = '4', seq_num = 7),
+    list(event = 'WT',    replicate = '1', plot = '5', seq_num = 7),
+    list(event = 'zg12a', replicate = '1', plot = '4', seq_num = 2),
+    list(event = 'zg5b',  replicate = '1', plot = '5', seq_num = 2),
+    list(event = 'zg5b',  replicate = '2', plot = '6', seq_num = 7)
+  )
 }
 
 # Calculate temperature-dependent values of C4 parameters
@@ -242,27 +195,30 @@ x_ci <- all_samples[[CI_COLUMN_NAME]]
 x_s  <- all_samples[['seq_num']]
 x_e  <- all_samples[[EVENT_COLUMN_NAME]]
 
-ci_lim  <- c(0, 1000)
+ci_lim  <- c(0, 1300)
 a_lim   <- c(0, 70)
+etr_lim <- c(0, 325)
 gsw_lim <- c(0, 0.5)
 
 ci_lab   <- 'Intercellular [CO2] (ppm)'
 a_lab    <- 'Net CO2 assimilation rate (micromol / m^2 / s)\n(error bars: standard error of the mean for same CO2 setpoint)'
 iWUE_lab <- 'Intrinsic water use efficiency (micromol CO2 / mol H2O)\n(error bars: standard error of the mean for same CO2 setpoint)'
+etr_lab  <- 'Electron transport rate (micromol / m^2 / s)\n(error bars: standard error of the mean for same CO2 setpoint)'
 gsw_lab  <- 'Stomatal conductance to H2O (mol / m^2 / s)\n(error bars: standard error of the mean for same CO2 setpoint)'
 
 avg_plot_param <- list(
     a_plot    = list(all_samples[['A']],    x_ci, x_s, x_e, xlab = ci_lab, ylab = a_lab,    xlim = ci_lim, ylim = a_lim),
     iwue_plot = list(all_samples[['iWUE']], x_ci, x_s, x_e, xlab = ci_lab, ylab = iWUE_lab, xlim = ci_lim),
-    gsw_plot  = list(all_samples[['gsw']],  x_ci, x_s, x_e, xlab = ci_lab, ylab = gsw_lab,  xlim = ci_lim, ylim = gsw_lim)
+    gsw_plot  = list(all_samples[['gsw']],  x_ci, x_s, x_e, xlab = ci_lab, ylab = gsw_lab,  xlim = ci_lim, ylim = gsw_lim),
+    etr_plot  = list(all_samples[['ETR']],  x_ci, x_s, x_e, xlab = ci_lab, ylab = etr_lab,  xlim = ci_lim, ylim = etr_lim)
 )
 
 for (i in seq_along(avg_plot_param)) {
     plot_obj <- do.call(xyplot_avg_rc, c(avg_plot_param[[i]], list(
         type = 'b',
         pch = 20,
-        cex = 1.5,
-        lwd = 2,
+        cex=1.5,
+        lwd=2,
         auto.key = list(space = 'right'),
         grid = TRUE,
         main = rc_caption
@@ -370,11 +326,13 @@ x_p <- all_fit_parameters[[EVENT_COLUMN_NAME]]
 xl  <- 'Genotype'
 
 plot_param <- list(
-    list(Y = all_fit_parameters[['Vcmax_at_25']],     X = x_p, xlab = xl, ylab = 'Vcmax at 25 C (micromol / m^2 / s)',                      ylim = c(0, 50),  main = fitting_caption),
-    list(Y = all_fit_parameters[['Vpmax_at_25']],     X = x_p, xlab = xl, ylab = 'Vpmax at 25 C (micromol / m^2 / s)',                      ylim = c(0, 120), main = fitting_caption),
-    list(Y = all_samples_one_point[[A_COLUMN_NAME]],  X = x_s, xlab = xl, ylab = 'Net CO2 assimilation rate (micromol / m^2 / s)',          ylim = c(0, 70),  main = boxplot_caption),
-    list(Y = all_samples_one_point[[CI_COLUMN_NAME]], X = x_s, xlab = xl, ylab = 'Intercellular CO2 concentration (micromol / mol)',        ylim = c(0, 150), main = boxplot_caption),
-    list(Y = all_samples_one_point[['iWUE']],         X = x_s, xlab = xl, ylab = 'Intrinsic water use efficiency (micromol CO2 / mol H2O)',                   main = boxplot_caption)
+    list(Y = all_fit_parameters[['Vcmax_at_25']],         X = x_p, xlab = xl, ylab = 'Vcmax at 25 C (micromol / m^2 / s)',                      ylim = c(0, 50),  main = fitting_caption),
+    list(Y = all_fit_parameters[['Vpmax_at_25']],         X = x_p, xlab = xl, ylab = 'Vpmax at 25 C (micromol / m^2 / s)',                      ylim = c(0, 120), main = fitting_caption),
+    list(Y = all_samples_one_point[[A_COLUMN_NAME]],      X = x_s, xlab = xl, ylab = 'Net CO2 assimilation rate (micromol / m^2 / s)',          ylim = c(0, 70),  main = boxplot_caption),
+    list(Y = all_samples_one_point[[CI_COLUMN_NAME]],     X = x_s, xlab = xl, ylab = 'Intercellular CO2 concentration (micromol / mol)',        ylim = c(0, 150), main = boxplot_caption),
+    list(Y = all_samples_one_point[['iWUE']],             X = x_s, xlab = xl, ylab = 'Intrinsic water use efficiency (micromol CO2 / mol H2O)',                   main = boxplot_caption),
+    list(Y = all_samples_one_point[[PHIPS2_COLUMN_NAME]], X = x_s, xlab = xl, ylab = 'Photosystem II operating efficiency',                     ylim = c(0, 0.4), main = boxplot_caption),
+    list(Y = all_samples_one_point[[ETR_COLUMN_NAME]],    X = x_s, xlab = xl, ylab = 'Electron transport rate (micromol / m^2 / s)',            ylim = c(0, 275), main = boxplot_caption)
 )
 
 # Make all the plots

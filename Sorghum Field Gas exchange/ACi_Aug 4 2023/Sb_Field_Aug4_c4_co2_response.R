@@ -6,7 +6,7 @@ library(lattice)
 if (packageVersion('PhotoGEA') != '0.11.0') {
     stop(
         'The `Sb_Field_Aug4_c4_co2_response.R` script requires PhotoGEA version ',
-        '0.11.0. See README.md for installation instructions.'
+        '0.11.0. See the main README.md for installation instructions.'
     )
 }
 
@@ -44,10 +44,6 @@ REMOVE_SPECIFIC_POINTS <- TRUE
 # Decide which solver to use
 solver <- optimizer_deoptim(itermax = 200)
 
-###                                                                        ###
-### COMPONENTS THAT ARE LESS LIKELY TO CHANGE EACH TIME THIS SCRIPT IS RUN ###
-###                                                                        ###
-
 # Specify the names of a few important columns
 A_COLUMN_NAME      <- 'A'
 CI_COLUMN_NAME     <- 'Ci'
@@ -60,10 +56,6 @@ REP_COLUMN_NAME    <- 'replicate'
 TIME_COLUMN_NAME   <- 'time'
 
 UNIQUE_ID_COLUMN_NAME <- 'line_sample'
-
-###                                                                   ###
-### COMMANDS THAT ACTUALLY CALL THE FUNCTIONS WITH APPROPRIATE INPUTS ###
-###                                                                   ###
 
 # Load the data
 multi_file_info <- lapply(LICOR_FILES_TO_PROCESS, function(fname) {
@@ -118,17 +110,17 @@ combined_info <- organize_response_curve_data(
 
 # Remove specific problematic points
 if (REMOVE_SPECIFIC_POINTS) {
-  # Specify the points to remove
-  combined_info <- remove_points(
-    combined_info,
-    list(event = 'zg5b',  replicate = '1', plot = '5'),
-    list(event = 'zg12a', replicate = '1', seq_num = 7),
-    list(event = 'hn1a',  replicate = '2', plot = '4', seq_num = 7),
-    list(event = 'WT',    replicate = '1', plot = '5', seq_num = 7),
-    list(event = 'zg12a', replicate = '1', plot = '4', seq_num = 2),
-    list(event = 'zg5b',  replicate = '1', plot = '5', seq_num = 2),
-    list(event = 'zg5b',  replicate = '2', plot = '6', seq_num = 7)
-  )
+    # Specify the points to remove
+    combined_info <- remove_points(
+        combined_info,
+        list(event = 'zg5b',  replicate = '1', plot = '5'),
+        list(event = 'zg12a', replicate = '1', seq_num = 7),
+        list(event = 'hn1a',  replicate = '2', plot = '4', seq_num = 7),
+        list(event = 'WT',    replicate = '1', plot = '5', seq_num = 7),
+        list(event = 'zg12a', replicate = '1', plot = '4', seq_num = 2),
+        list(event = 'zg5b',  replicate = '1', plot = '5', seq_num = 2),
+        list(event = 'zg5b',  replicate = '2', plot = '6', seq_num = 7)
+    )
 }
 
 # Calculate temperature-dependent values of C4 parameters
@@ -189,7 +181,7 @@ x_ci <- all_samples[[CI_COLUMN_NAME]]
 x_s  <- all_samples[['seq_num']]
 x_e  <- all_samples[[EVENT_COLUMN_NAME]]
 
-ci_lim  <- c(0, 1300)
+ci_lim  <- c(0, 1000)
 a_lim   <- c(0, 70)
 etr_lim <- c(0, 325)
 gsw_lim <- c(0, 0.5)
@@ -211,8 +203,8 @@ for (i in seq_along(avg_plot_param)) {
     plot_obj <- do.call(xyplot_avg_rc, c(avg_plot_param[[i]], list(
         type = 'b',
         pch = 20,
-        cex=1.5,
-        lwd=2,
+        cex = 1.5,
+        lwd = 2,
         auto.key = list(space = 'right'),
         grid = TRUE,
         main = rc_caption
