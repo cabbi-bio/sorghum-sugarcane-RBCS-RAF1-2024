@@ -1,4 +1,4 @@
-# Field gas exchange
+# ACi_July 10 2023
 
 ## Overview
 
@@ -10,20 +10,20 @@ curves measured from field-grown sorghum plants on July 10, 2023.
 - Four Microsoft Excel files whose names begin with `2023`: Licor LI-6800
   log files.
 
-- `Sb_Field_July10_c4_co2_response.R`: An R script that estimates Vpmax and Vcmax
-  from the measured gas exchange data
+- `Sb_Field_July10_c4_co2_response.R`: An R script that estimates Vpmax and
+  Vcmax from the measured gas exchange data
 
 ## Running the script from R
 
 1. Set the working directory of an R session to this directory.
 
-2. Type the following to run the A-Ci script:
+2. Type the following to run the script:
 
    ```r
    source('Sb_Field_July10_c4_co2_response.R')
    ```
 
-3. The `process_aci` script will produce several graphs in the R workspace, as
-   well as output PDF and CSV files in this directory.
+3. The script will produce several graphs in the R workspace, as well as output
+   PDF and CSV files in this directory.
 
 *WARNING:* This script will automatically clear your workspace before it runs.

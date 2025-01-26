@@ -20,22 +20,34 @@ have been tested using the following installation:
   - Platform: x86_64-w64-mingw32
   - Microsoft Windows 11 Enterprise version 10.0.26100 Build 26100
 
-Some of these scripts use version `0.11.0` of the
+These scripts use version `0.11.0` of the
 [PhotoGEA R package](https://eloch216.github.io/PhotoGEA/) for processing and
 analyzing gas exchange data.
 
 ### Required R packages
 
-The scripts in this directory require two R packages: `lattice` and `PhotoGEA`
-(version `0.11.0`):
+The scripts in this directory require several R packages: `lattice`, `ggplot2`,
+and `PhotoGEA` (version `0.11.0`):
 
 - The `lattice` package can be installed from within R using
-  `install.packages('lattice')`.
+  ```r
+  install.packages('lattice')
+  ````
+
+- The `ggplot2` package can be installed from within R using
+  ```r
+  install.packages('ggplot2')
+  ```
 
 - The required version of `PhotoGEA` can be installed from within R by calling
-  `remotes::install_github('eloch216/PhotoGEA', ref = 'v0.11.0')`. Note that
-  this command requires the `remotes` package, which can be installed using
-  `install.packages('remotes')`.
+  ```r
+  remotes::install_github('eloch216/PhotoGEA', ref = 'v0.11.0')
+  ```
+  Note that this command requires the `remotes` package, which can be installed
+  using
+  ```r
+  install.packages('remotes')
+  ```
 
 ### Other instructions
 

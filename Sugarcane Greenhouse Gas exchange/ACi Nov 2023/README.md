@@ -1,4 +1,4 @@
-# Field gas exchange
+# ACi Nov 2023
 
 ## Overview
 
@@ -17,13 +17,13 @@ curves measured from greenhouse-grown sugarcane plants on November 16-17, 2023.
 
 1. Set the working directory of an R session to this directory.
 
-2. Type the following to run the A-Ci script:
+2. Type the following to run the script:
 
    ```r
    source('sugarcane_c4_co2_response.R')
    ```
 
-3. The `process_aci` script will produce several graphs in the R workspace, as
-   well as output PDF and CSV files in this directory.
+3. The script will produce several graphs in the R workspace, as well as output
+   PDF and CSV files in this directory.
 
 *WARNING:* This script will automatically clear your workspace before it runs.

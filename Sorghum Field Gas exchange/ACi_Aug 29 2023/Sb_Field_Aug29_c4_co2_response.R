@@ -5,8 +5,8 @@ library(lattice)
 # Check to make sure we have the correct version of PhotoGEA
 if (packageVersion('PhotoGEA') != '0.11.0') {
     stop(
-        'The `Sb_Field_Aug29_c4_co2_response.R` script requires PhotoGEA version ',
-        '0.11.0. See the main README.md for installation instructions.'
+        'The `Sb_Field_Aug29_c4_co2_response.R` script requires PhotoGEA ',
+        'version 0.11.0. See the main README.md for installation instructions.'
     )
 }
 
