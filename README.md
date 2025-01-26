@@ -24,6 +24,9 @@ These scripts use version `0.11.0` of the
 [PhotoGEA R package](https://eloch216.github.io/PhotoGEA/) for processing and
 analyzing gas exchange data.
 
+The `Sorghum Field Gas exchange/Leakiness_July 24 2023` directory also contains
+MATLAB scripts that were used for the analysis.
+
 ### Required R packages
 
 The scripts in this directory require several R packages: `lattice`, `ggplot2`,
@@ -55,7 +58,7 @@ To run these scripts, it is recommended to first download a local copy of this
 entire repository.
 
 Additional instructions for running the scripts can be found in the `README.md`
-files in each directory that contains R scripts.
+files in each directory that contains scripts.
 
 ## License
 This repository is licensed under the CC BY 4.0
