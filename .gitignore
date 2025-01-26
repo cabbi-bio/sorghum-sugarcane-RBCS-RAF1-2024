@@ -8,3 +8,5 @@ all_samples_one_point.csv
 etr_plot.pdf
 gsw_plot.pdf
 iwue_plot.pdf
+Sorghum Field Gas exchange/Leakiness_July 24 2023/*.csv
+Sorghum Field Gas exchange/Leakiness_July 24 2023/Simulations.m
