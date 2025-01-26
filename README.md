@@ -10,9 +10,9 @@ will be added later).
 
 ## Scripts
 
-The `Sorghum Field Gas exchange` directory contains R scripts that were used
-for the analysis. These scripts have been tested using the following
-installation:
+Subdirectories of the `Sorghum Field Gas exchange` directory contains R scripts
+that were used for the analysis. These scripts have been tested using the
+following installation:
 
 - Windows:
   - R version 4.4.2 (2024-10-31 ucrt)
@@ -38,8 +38,11 @@ The scripts in this directory require two R packages: `lattice` and `PhotoGEA`
 
 ### Other instructions
 
+To run these scripts, it is recommended to first download a local copy of this
+entire repository.
+
 Additional instructions for running the scripts can be found in the `README.md`
-files in those directories.
+files in each directory that contains R scripts.
 
 ## License
 This repository is licensed under the CC BY 4.0
