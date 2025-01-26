@@ -10,9 +10,10 @@ will be added later).
 
 ## Scripts
 
-Subdirectories of the `Sorghum Field Gas exchange` directory contains R scripts
-that were used for the analysis. These scripts have been tested using the
-following installation:
+Subdirectories of the `Sorghum Field Gas exchange` and
+`Sugarcane Greenhouse Gas exchange` directories contains R scripts that were
+used for the analysis. These scripts have been tested using the following
+installation:
 
 - Windows:
   - R version 4.4.2 (2024-10-31 ucrt)
