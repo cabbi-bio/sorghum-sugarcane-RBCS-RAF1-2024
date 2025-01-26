@@ -8,6 +8,26 @@ photosynthesis to atmospheric change and increasing productivity by elevating
 Rubisco content in Sorghum and Sugarcane," published in PNAS (full citation
 will be added later).
 
+## Directories
+
+The `Construct sequences` directory contains the sorghum and sugarcane
+constructs used in the study.
+
+The following directories each contain one or two Excel spreadsheets of data
+values reported in the study:
+- `qPCR and Western blot quantification`
+- `Sorghum Field (Harvest, NIR, IRMS, LMA, SPAD)`
+- `Sorghum Greenhouse (Rubisco, Growth)`
+- `Sugarcane Greenhouse (Rubisco, Growth, LMA)`
+- `Weather data`
+
+The remaining directories contain gas exchange data and analysis scripts, as
+described below, in addition to summary Excel spreadsheets of data values
+reported in the study:
+- `Sorghum Field Gas exchange`
+- `Sorghum Greenhouse Gas exchange`
+- `Sugarcane Greenhouse Gas exchange`
+
 ## Scripts
 
 Subdirectories of the `Sorghum Field Gas exchange`,
@@ -27,7 +47,7 @@ analyzing gas exchange data.
 The `Sorghum Field Gas exchange/Leakiness_July 24 2023` directory also contains
 MATLAB scripts that were used for the analysis.
 
-### Required R packages
+### R packages required to run the scripts
 
 The scripts in this directory require several R packages: `lattice`, `ggplot2`,
 and `PhotoGEA` (version `0.11.0`):
@@ -52,7 +72,7 @@ and `PhotoGEA` (version `0.11.0`):
   install.packages('remotes')
   ```
 
-### Other instructions
+### Other instructions for running the scripts
 
 To run these scripts, it is recommended to first download a local copy of this
 entire repository.
