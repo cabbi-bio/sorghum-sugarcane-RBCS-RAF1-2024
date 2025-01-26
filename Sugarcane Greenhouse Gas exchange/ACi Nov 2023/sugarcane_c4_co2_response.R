@@ -188,20 +188,17 @@ x_e  <- all_samples[[EVENT_COLUMN_NAME]]
 
 ci_lim  <- c(0, 1000)
 a_lim   <- c(0, 70)
-etr_lim <- c(0, 325)
 gsw_lim <- c(0, 0.5)
 
 ci_lab   <- 'Intercellular [CO2] (ppm)'
 a_lab    <- 'Net CO2 assimilation rate (micromol / m^2 / s)\n(error bars: standard error of the mean for same CO2 setpoint)'
 iWUE_lab <- 'Intrinsic water use efficiency (micromol CO2 / mol H2O)\n(error bars: standard error of the mean for same CO2 setpoint)'
-etr_lab  <- 'Electron transport rate (micromol / m^2 / s)\n(error bars: standard error of the mean for same CO2 setpoint)'
 gsw_lab  <- 'Stomatal conductance to H2O (mol / m^2 / s)\n(error bars: standard error of the mean for same CO2 setpoint)'
 
 avg_plot_param <- list(
     a_plot    = list(all_samples[['A']],    x_ci, x_s, x_e, xlab = ci_lab, ylab = a_lab,    xlim = ci_lim, ylim = a_lim),
     iwue_plot = list(all_samples[['iWUE']], x_ci, x_s, x_e, xlab = ci_lab, ylab = iWUE_lab, xlim = ci_lim),
-    gsw_plot  = list(all_samples[['gsw']],  x_ci, x_s, x_e, xlab = ci_lab, ylab = gsw_lab,  xlim = ci_lim, ylim = gsw_lim),
-    etr_plot  = list(all_samples[['ETR']],  x_ci, x_s, x_e, xlab = ci_lab, ylab = etr_lab,  xlim = ci_lim, ylim = etr_lim)
+    gsw_plot  = list(all_samples[['gsw']],  x_ci, x_s, x_e, xlab = ci_lab, ylab = gsw_lab,  xlim = ci_lim, ylim = gsw_lim)
 )
 
 for (i in seq_along(avg_plot_param)) {

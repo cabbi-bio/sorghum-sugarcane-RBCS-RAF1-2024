@@ -2,30 +2,9 @@
 *.RHistory
 
 # Output files that shouldn't be stored
-Sorghum Field Gas exchange/ACi_Aug 29 2023/a_plot.pdf
-Sorghum Field Gas exchange/ACi_Aug 29 2023/all_fit_parameters.csv
-Sorghum Field Gas exchange/ACi_Aug 29 2023/all_samples_one_point.csv
-Sorghum Field Gas exchange/ACi_Aug 29 2023/etr_plot.pdf
-Sorghum Field Gas exchange/ACi_Aug 29 2023/gsw_plot.pdf
-Sorghum Field Gas exchange/ACi_Aug 29 2023/iwue_plot.pdf
-
-Sorghum Field Gas exchange/ACi_Aug 4 2023/a_plot.pdf
-Sorghum Field Gas exchange/ACi_Aug 4 2023/all_fit_parameters.csv
-Sorghum Field Gas exchange/ACi_Aug 4 2023/all_samples_one_point.csv
-Sorghum Field Gas exchange/ACi_Aug 4 2023/etr_plot.pdf
-Sorghum Field Gas exchange/ACi_Aug 4 2023/gsw_plot.pdf
-Sorghum Field Gas exchange/ACi_Aug 4 2023/iwue_plot.pdf
-
-Sorghum Field Gas exchange/ACi_July 10 2023/a_plot.pdf
-Sorghum Field Gas exchange/ACi_July 10 2023/all_fit_parameters.csv
-Sorghum Field Gas exchange/ACi_July 10 2023/all_samples_one_point.csv
-Sorghum Field Gas exchange/ACi_July 10 2023/etr_plot.pdf
-Sorghum Field Gas exchange/ACi_July 10 2023/gsw_plot.pdf
-Sorghum Field Gas exchange/ACi_July 10 2023/iwue_plot.pdf
-
-Sugarcane Greenhouse Gas exchange/ACi Nov 2023/a_plot.pdf
-Sugarcane Greenhouse Gas exchange/ACi Nov 2023/all_fit_parameters.csv
-Sugarcane Greenhouse Gas exchange/ACi Nov 2023/all_samples_one_point.csv
-Sugarcane Greenhouse Gas exchange/ACi Nov 2023/etr_plot.pdf
-Sugarcane Greenhouse Gas exchange/ACi Nov 2023/gsw_plot.pdf
-Sugarcane Greenhouse Gas exchange/ACi Nov 2023/iwue_plot.pdf
+a_plot.pdf
+all_fit_parameters.csv
+all_samples_one_point.csv
+etr_plot.pdf
+gsw_plot.pdf
+iwue_plot.pdf
