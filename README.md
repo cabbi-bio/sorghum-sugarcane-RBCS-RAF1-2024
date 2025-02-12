@@ -3,10 +3,13 @@
 ## Overview
 
 This repository includes data sets and R scripts that were used to perform
-analysis and produce figures for the manuscript titled "Adapting C4
-photosynthesis to atmospheric change and increasing productivity by elevating
-Rubisco content in Sorghum and Sugarcane," published in PNAS (full citation
-will be added later).
+analysis and produce figures for the following publication:
+
+Salesse-Smith, C. E. _et al_. "Adapting C<sub>4</sub> photosynthesis to
+atmospheric change and increasing productivity by elevating Rubisco content in
+sorghum and sugarcane." _Proceedings of the National Academy of Sciences_
+**122**, e2419943122 (2025)
+[doi:10.1073/pnas.2419943122](https://doi.org/10.1073/pnas.2419943122).
 
 ## Directories
 
